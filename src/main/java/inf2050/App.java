@@ -1,3 +1,8 @@
+/**
+ * @author Ivaylo Ivanov
+ * IVAI08039506
+ */
+
 package inf2050;
 
 import java.util.*;
@@ -5,13 +10,13 @@ import java.io.*;
 import java.time.*;
 
 /**
- * Hello world!
+ * Classe App
  */
 public final class App {
     
     /**
-     * 
-     * @param args 
+     * Fonction main du projet
+     * @param args args[0] - La destination ou le nom du fichier.
      */
     public static void main(String[] args) {
         String path = args[0];
@@ -43,7 +48,7 @@ public final class App {
                 }else{
                     boolean existe = false;
                     for(Statistique statistique: statistiques){
-                        if(statistique.getArrondissement().equals(plainte.getArrondissement())) {
+                        if(statistique.getArrondissement().toLowerCase().equals(plainte.getArrondissement().toLowerCase())) {
                             statistique.incrementerIntervention();
                             existe=true;
                         }
@@ -71,7 +76,10 @@ public final class App {
         }
     }
 }
-
+/**
+ * Class Planinte enregistre chaque ligne du fichier en entree 
+ * dans un nouveau objet plainte.
+ */
 class Plainte{
     private LocalDate date;
     private String heure;
@@ -103,7 +111,11 @@ class Plainte{
         return parc;
     }
 };
-
+/**
+ * Classe Statistique enregistre les intervention dans chaque arrondissement
+ * @param arrondissement - Lieu de l'intervention
+ * @param intervention - Quantite des interventions
+ */
 class Statistique{
     
     private String arrondissement;
