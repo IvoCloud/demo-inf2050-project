@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="inf2050.AppTest" time="0.071" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="inf2050.AppTest" time="0.248" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -17,7 +17,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="C:\Users\i_iva\AppData\Local\Programs\AdoptOpenJDK\jdk-11.0.8.10-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\i_iva\AppData\Local\Temp\surefire3364973962475651022\surefirebooter3649652160226543731.jar C:\Users\i_iva\AppData\Local\Temp\surefire3364973962475651022 2020-11-15T15-41-54_987-jvmRun1 surefire5999857368228076264tmp surefire_014751873844793555026tmp"/>
+    <property name="sun.java.command" value="C:\Users\i_iva\AppData\Local\Temp\surefire12468866460971263689\surefirebooter2606337112426687648.jar C:\Users\i_iva\AppData\Local\Temp\surefire12468866460971263689 2020-11-15T18-19-23_753-jvmRun1 surefire10153955589083931235tmp surefire_02429670678267426366tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="d:\UQAM\INF2050\IVAI08039506\target\test-classes;d:\UQAM\INF2050\IVAI08039506\target\classes;C:\Users\i_iva\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.7.0\junit-jupiter-api-5.7.0.jar;C:\Users\i_iva\.m2\repository\org\apiguardian\apiguardian-api\1.1.0\apiguardian-api-1.1.0.jar;C:\Users\i_iva\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\i_iva\.m2\repository\org\junit\platform\junit-platform-commons\1.7.0\junit-platform-commons-1.7.0.jar;C:\Users\i_iva\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.7.0\junit-jupiter-engine-5.7.0.jar;C:\Users\i_iva\.m2\repository\org\junit\platform\junit-platform-engine\1.7.0\junit-platform-engine-1.7.0.jar;C:\Users\i_iva\.m2\repository\net\sf\json-lib\json-lib\2.4\json-lib-2.4-jdk15.jar;C:\Users\i_iva\.m2\repository\commons-beanutils\commons-beanutils\1.8.0\commons-beanutils-1.8.0.jar;C:\Users\i_iva\.m2\repository\commons-collections\commons-collections\3.2.1\commons-collections-3.2.1.jar;C:\Users\i_iva\.m2\repository\commons-lang\commons-lang\2.5\commons-lang-2.5.jar;C:\Users\i_iva\.m2\repository\commons-logging\commons-logging\1.1.1\commons-logging-1.1.1.jar;C:\Users\i_iva\.m2\repository\net\sf\ezmorph\ezmorph\1.0.6\ezmorph-1.0.6.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -33,7 +33,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\i_iva\AppData\Local\Temp\surefire3364973962475651022\surefirebooter3649652160226543731.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\i_iva\AppData\Local\Temp\surefire12468866460971263689\surefirebooter2606337112426687648.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="11.0.8+10"/>
@@ -60,5 +60,6 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="55.0"/>
   </properties>
-  <testcase name="testApp" classname="inf2050.AppTest" time="0.046"/>
+  <testcase name="testArrondissement" classname="inf2050.AppTest" time="0.213"/>
+  <testcase name="testApp" classname="inf2050.AppTest" time="0.003"/>
 </testsuite>

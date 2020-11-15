@@ -6,13 +6,21 @@
 package inf2050;
 
 import java.util.*;
+
 import java.io.*;
-import java.time.*;
+
+import inf2050.Plainte;
+
+import inf2050.Statistique;
+
+import net.sf.json.*;
+
+import java.nio.charset.StandardCharsets;
 
 /**
- * Classe App
+ * Class App
  */
-public final class App {
+public class App {
     
     /**
      * Fonction main du projet
@@ -27,6 +35,8 @@ public final class App {
         List<Statistique> statistiques = new ArrayList<>();
 
         try{
+            int numeroLigne = 1;
+            String champActuel = "";
             File fichier = new File(path);
             Scanner scanner = new Scanner(fichier);
             if(scanner.hasNext()) scanner.next();
@@ -34,8 +44,13 @@ public final class App {
                 String ligne = scanner.nextLine();
                 if(!ligne.equals("")){
                     String[] elements = ligne.split(",");
-                    Plainte plainte = new Plainte(elements[0], elements[1], elements[2], elements[3], elements[4]);
-                    plaintes.add(plainte);
+                    if(verifierArrondissement(elements[3])){
+                        Plainte plainte = new Plainte(elements[0], elements[1], elements[2], elements[3], elements[4]);
+                        plaintes.add(plainte);
+                    }else{
+                        System.out.println("L'arrondissement n'est pas valide");
+                        System.exit(0);
+                    }
                 }
             }
             scanner.close();
@@ -75,67 +90,24 @@ public final class App {
             System.out.println("Erreur de lecture du fichier: " +e);
         }
     }
-}
-/**
- * Class Planinte enregistre chaque ligne du fichier en entree 
- * dans un nouveau objet plainte.
- */
-class Plainte{
-    private LocalDate date;
-    private String heure;
-    private String parc;
-    private String arrondissement;
-    private String description;
 
-    public Plainte(String date, String heure, String parc,String arrondissement,String description){
-        this.date = LocalDate.parse(date);
-        this.heure = heure;
-        this.parc = parc;
-        this.arrondissement = arrondissement;
-        this.description = description;
-    }
-
-    public String getArrondissement() {
-        return arrondissement;
-    }
-    public LocalDate getDate() {
-        return date;
-    }
-    public String getDescription() {
-        return description;
-    }
-    public String getHeure() {
-        return heure;
-    }
-    public String getParc() {
-        return parc;
-    }
-};
-/**
- * Classe Statistique enregistre les intervention dans chaque arrondissement
- * @param arrondissement - Lieu de l'intervention
- * @param intervention - Quantite des interventions
- */
-class Statistique{
+    static boolean verifierArrondissement(String arrondissement){
+        String data = "";
+        try{
+          File fichierArrondissement = new File("./src/main/ressources/json/arrondissements.json");
+          Scanner scanner = new Scanner(fichierArrondissement, StandardCharsets.UTF_8.name());
+          while (scanner.hasNextLine()) {
+            data += scanner.nextLine();
+          }
+          scanner.close();
+        } catch (FileNotFoundException e) {
+          System.out.println("Erreur de lecture du fichier arrondissements.json");
+          e.printStackTrace();
+        }
+        JSONObject jsonFile = new JSONObject();
+        jsonFile = (JSONObject)JSONSerializer.toJSON(data);
+        JSONArray texte = (JSONArray)jsonFile.get("arrondissements");
     
-    private String arrondissement;
-    private int intervention=1;
-
-    public Statistique(String arrondissement){
-        this.arrondissement = arrondissement;
-    };
-
-    public String getArrondissement() {
-        return arrondissement;
-    }
-    public int getIntervention() {
-        return intervention;
-    }
-    public void setIntervention(int intervention) {
-        this.intervention = intervention;
-    }
-
-    void incrementerIntervention(){
-        ++intervention;
-    }
+        return texte.contains(arrondissement);
+      }
 }

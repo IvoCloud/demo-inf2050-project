@@ -6,137 +6,102 @@
 package inf2050;
 
 import java.util.*;
+
 import java.io.*;
-import java.time.*;
+
+import inf2050.Plainte;
+
+import inf2050.Statistique;
+
+import net.sf.json.*;
+
+import java.nio.charset.StandardCharsets;
 
 /**
- * Classe App
+ * Class App
  */
-<span class="nc" id="L15">public final class App {</span>
+<span class="fc" id="L23">public class App {</span>
     
     /**
      * Fonction main du projet
      * @param args args[0] - La destination ou le nom du fichier.
      */
     public static void main(String[] args) {
-<span class="nc" id="L22">        String path = args[0];</span>
+<span class="nc" id="L30">        String path = args[0];</span>
 
-<span class="nc" id="L24">        String sortie = &quot;Arrondissement,Nombre d'interventions\n&quot;;</span>
+<span class="nc" id="L32">        String sortie = &quot;Arrondissement,Nombre d'interventions\n&quot;;</span>
         
-<span class="nc" id="L26">        List&lt;Plainte&gt; plaintes = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L27">        List&lt;Statistique&gt; statistiques = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L34">        List&lt;Plainte&gt; plaintes = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L35">        List&lt;Statistique&gt; statistiques = new ArrayList&lt;&gt;();</span>
 
         try{
-<span class="nc" id="L30">            File fichier = new File(path);</span>
-<span class="nc" id="L31">            Scanner scanner = new Scanner(fichier);</span>
-<span class="nc bnc" id="L32" title="All 2 branches missed.">            if(scanner.hasNext()) scanner.next();</span>
-<span class="nc bnc" id="L33" title="All 2 branches missed.">            while(scanner.hasNextLine()){</span>
-<span class="nc" id="L34">                String ligne = scanner.nextLine();</span>
-<span class="nc bnc" id="L35" title="All 2 branches missed.">                if(!ligne.equals(&quot;&quot;)){</span>
-<span class="nc" id="L36">                    String[] elements = ligne.split(&quot;,&quot;);</span>
-<span class="nc" id="L37">                    Plainte plainte = new Plainte(elements[0], elements[1], elements[2], elements[3], elements[4]);</span>
-<span class="nc" id="L38">                    plaintes.add(plainte);</span>
+<span class="nc" id="L38">            File fichier = new File(path);</span>
+<span class="nc" id="L39">            Scanner scanner = new Scanner(fichier);</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">            if(scanner.hasNext()) scanner.next();</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">            while(scanner.hasNextLine()){</span>
+<span class="nc" id="L42">                String ligne = scanner.nextLine();</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">                if(!ligne.equals(&quot;&quot;)){</span>
+<span class="nc" id="L44">                    String[] elements = ligne.split(&quot;,&quot;);</span>
+<span class="nc" id="L45">                    Plainte plainte = new Plainte(elements[0], elements[1], elements[2], elements[3], elements[4]);</span>
+<span class="nc" id="L46">                    plaintes.add(plainte);</span>
                 }
-<span class="nc" id="L40">            }</span>
-<span class="nc" id="L41">            scanner.close();</span>
+<span class="nc" id="L48">            }</span>
+<span class="nc" id="L49">            scanner.close();</span>
             
-<span class="nc" id="L43">            plaintes.forEach((plainte)-&gt;{</span>
+<span class="nc" id="L51">            plaintes.forEach((plainte)-&gt;{</span>
 
-<span class="nc bnc" id="L45" title="All 2 branches missed.">                if(statistiques.size()==0) {</span>
-<span class="nc" id="L46">                    Statistique statistique = new Statistique(plainte.getArrondissement());</span>
-<span class="nc" id="L47">                    statistiques.add(statistique);</span>
-<span class="nc" id="L48">                }else{</span>
-<span class="nc" id="L49">                    boolean existe = false;</span>
-<span class="nc bnc" id="L50" title="All 2 branches missed.">                    for(Statistique statistique: statistiques){</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">                        if(statistique.getArrondissement().toLowerCase().equals(plainte.getArrondissement().toLowerCase())) {</span>
-<span class="nc" id="L52">                            statistique.incrementerIntervention();</span>
-<span class="nc" id="L53">                            existe=true;</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">                if(statistiques.size()==0) {</span>
+<span class="nc" id="L54">                    Statistique statistique = new Statistique(plainte.getArrondissement());</span>
+<span class="nc" id="L55">                    statistiques.add(statistique);</span>
+<span class="nc" id="L56">                }else{</span>
+<span class="nc" id="L57">                    boolean existe = false;</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">                    for(Statistique statistique: statistiques){</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">                        if(statistique.getArrondissement().toLowerCase().equals(plainte.getArrondissement().toLowerCase())) {</span>
+<span class="nc" id="L60">                            statistique.incrementerIntervention();</span>
+<span class="nc" id="L61">                            existe=true;</span>
                         }
-<span class="nc" id="L55">                    }</span>
-<span class="nc bnc" id="L56" title="All 2 branches missed.">                    if(!existe){</span>
-<span class="nc" id="L57">                        Statistique statistique = new Statistique(plainte.getArrondissement());</span>
-<span class="nc" id="L58">                        statistiques.add(statistique);</span>
+<span class="nc" id="L63">                    }</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">                    if(!existe){</span>
+<span class="nc" id="L65">                        Statistique statistique = new Statistique(plainte.getArrondissement());</span>
+<span class="nc" id="L66">                        statistiques.add(statistique);</span>
                     }
                 }
-<span class="nc" id="L61">            });</span>
+<span class="nc" id="L69">            });</span>
 
-<span class="nc bnc" id="L63" title="All 2 branches missed.">            for(Statistique statistique: statistiques){</span>
-<span class="nc" id="L64">                sortie = sortie.concat(statistique.getArrondissement() + &quot;,&quot; + statistique.getIntervention()+&quot;\n&quot;);</span>
-<span class="nc" id="L65">            };</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            for(Statistique statistique: statistiques){</span>
+<span class="nc" id="L72">                sortie = sortie.concat(statistique.getArrondissement() + &quot;,&quot; + statistique.getIntervention()+&quot;\n&quot;);</span>
+<span class="nc" id="L73">            };</span>
             try{
-<span class="nc" id="L67">                FileWriter writer = new FileWriter(&quot;sortie.csv&quot;);</span>
-<span class="nc" id="L68">                writer.write(sortie);</span>
-<span class="nc" id="L69">                writer.close();</span>
-<span class="nc" id="L70">                System.out.println(&quot;Fichier enregistre&quot;);</span>
-<span class="nc" id="L71">            }catch(IOException e){</span>
-<span class="nc" id="L72">                System.out.println(&quot;Erreur d'ecriture: &quot; + e);</span>
-<span class="nc" id="L73">            }</span>
-<span class="nc" id="L74">        }catch(FileNotFoundException e){</span>
-<span class="nc" id="L75">            System.out.println(&quot;Erreur de lecture du fichier: &quot; +e);</span>
-<span class="nc" id="L76">        }</span>
-<span class="nc" id="L77">    }</span>
-}
-/**
- * Class Planinte enregistre chaque ligne du fichier en entree 
- * dans un nouveau objet plainte.
- */
-class Plainte{
-    private LocalDate date;
-    private String heure;
-    private String parc;
-    private String arrondissement;
-    private String description;
+<span class="nc" id="L75">                FileWriter writer = new FileWriter(&quot;sortie.csv&quot;);</span>
+<span class="nc" id="L76">                writer.write(sortie);</span>
+<span class="nc" id="L77">                writer.close();</span>
+<span class="nc" id="L78">                System.out.println(&quot;Fichier enregistre&quot;);</span>
+<span class="nc" id="L79">            }catch(IOException e){</span>
+<span class="nc" id="L80">                System.out.println(&quot;Erreur d'ecriture: &quot; + e);</span>
+<span class="nc" id="L81">            }</span>
+<span class="nc" id="L82">        }catch(FileNotFoundException e){</span>
+<span class="nc" id="L83">            System.out.println(&quot;Erreur de lecture du fichier: &quot; +e);</span>
+<span class="nc" id="L84">        }</span>
+<span class="nc" id="L85">    }</span>
 
-<span class="nc" id="L90">    public Plainte(String date, String heure, String parc,String arrondissement,String description){</span>
-<span class="nc" id="L91">        this.date = LocalDate.parse(date);</span>
-<span class="nc" id="L92">        this.heure = heure;</span>
-<span class="nc" id="L93">        this.parc = parc;</span>
-<span class="nc" id="L94">        this.arrondissement = arrondissement;</span>
-<span class="nc" id="L95">        this.description = description;</span>
-<span class="nc" id="L96">    }</span>
-
-    public String getArrondissement() {
-<span class="nc" id="L99">        return arrondissement;</span>
-    }
-    public LocalDate getDate() {
-<span class="nc" id="L102">        return date;</span>
-    }
-    public String getDescription() {
-<span class="nc" id="L105">        return description;</span>
-    }
-    public String getHeure() {
-<span class="nc" id="L108">        return heure;</span>
-    }
-    public String getParc() {
-<span class="nc" id="L111">        return parc;</span>
-    }
-};
-/**
- * Classe Statistique enregistre les intervention dans chaque arrondissement
- * @param arrondissement - Lieu de l'intervention
- * @param intervention - Quantite des interventions
- */
-class Statistique{
+    boolean verifierArrondissement(String arrondissement){
+<span class="fc" id="L88">        String data = &quot;&quot;;</span>
+        try{
+<span class="fc" id="L90">          File fichierArrondissement = new File(&quot;./src/main/ressources/json/arrondissements.json&quot;);</span>
+<span class="fc" id="L91">          Scanner scanner = new Scanner(fichierArrondissement, StandardCharsets.UTF_8.name());</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">          while (scanner.hasNextLine()) {</span>
+<span class="fc" id="L93">            data += scanner.nextLine();</span>
+          }
+<span class="fc" id="L95">          scanner.close();</span>
+<span class="nc" id="L96">        } catch (FileNotFoundException e) {</span>
+<span class="nc" id="L97">          System.out.println(&quot;Erreur de lecture du fichier arrondissements.json&quot;);</span>
+<span class="nc" id="L98">          e.printStackTrace();</span>
+<span class="fc" id="L99">        }</span>
+<span class="fc" id="L100">        JSONObject jsonFile = new JSONObject();</span>
+<span class="fc" id="L101">        jsonFile = (JSONObject)JSONSerializer.toJSON(data);</span>
+<span class="fc" id="L102">        JSONArray texte = (JSONArray)jsonFile.get(&quot;arrondissements&quot;);</span>
     
-    private String arrondissement;
-<span class="nc" id="L122">    private int intervention=1;</span>
-
-<span class="nc" id="L124">    public Statistique(String arrondissement){</span>
-<span class="nc" id="L125">        this.arrondissement = arrondissement;</span>
-<span class="nc" id="L126">    };</span>
-
-    public String getArrondissement() {
-<span class="nc" id="L129">        return arrondissement;</span>
-    }
-    public int getIntervention() {
-<span class="nc" id="L132">        return intervention;</span>
-    }
-    public void setIntervention(int intervention) {
-<span class="nc" id="L135">        this.intervention = intervention;</span>
-<span class="nc" id="L136">    }</span>
-
-    void incrementerIntervention(){
-<span class="nc" id="L139">        ++intervention;</span>
-<span class="nc" id="L140">    }</span>
+<span class="fc" id="L104">        return texte.contains(arrondissement);</span>
+      }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
