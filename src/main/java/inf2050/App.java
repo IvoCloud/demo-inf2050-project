@@ -35,8 +35,6 @@ public class App {
         List<Statistique> statistiques = new ArrayList<>();
 
         try{
-            int numeroLigne = 1;
-            String champActuel = "";
             File fichier = new File(path);
             Scanner scanner = new Scanner(fichier);
             if(scanner.hasNext()) scanner.next();
@@ -44,19 +42,14 @@ public class App {
                 String ligne = scanner.nextLine();
                 if(!ligne.equals("")){
                     String[] elements = ligne.split(",");
-                    if(verifierArrondissement(elements[3])){
-                        Plainte plainte = new Plainte(elements[0], elements[1], elements[2], elements[3], elements[4]);
-                        plaintes.add(plainte);
-                    }else{
-                        System.out.println("L'arrondissement n'est pas valide");
-                        System.exit(0);
-                    }
+                    validerLigne(elements);
+                    Plainte plainte = new Plainte(elements[0], elements[1], elements[2], elements[3], elements[4]);
+                    plaintes.add(plainte);
                 }
             }
             scanner.close();
             
             plaintes.forEach((plainte)->{
-
                 if(statistiques.size()==0) {
                     Statistique statistique = new Statistique(plainte.getArrondissement());
                     statistiques.add(statistique);
@@ -106,8 +99,44 @@ public class App {
         }
         JSONObject jsonFile = new JSONObject();
         jsonFile = (JSONObject)JSONSerializer.toJSON(data);
-        JSONArray texte = (JSONArray)jsonFile.get("arrondissements");
+        JSONArray arrondissements = (JSONArray)jsonFile.get("arrondissements");
     
-        return texte.contains(arrondissement);
-      }
+        return arrondissements.contains(arrondissement);
+    }
+
+    static boolean verifierIntervention(String intervention){
+        String data = "";
+        try{
+          File fichierIntervention = new File("./src/main/ressources/json/interventions.json");
+          Scanner scanner = new Scanner(fichierIntervention, StandardCharsets.UTF_8.name());
+          while (scanner.hasNextLine()) {
+            data += scanner.nextLine();
+          }
+          scanner.close();
+        } catch (FileNotFoundException e) {
+          System.out.println("Erreur de lecture du fichier interventions.json");
+          e.printStackTrace();
+        }
+        JSONObject jsonFile = new JSONObject();
+        jsonFile = (JSONObject)JSONSerializer.toJSON(data);
+        JSONArray interventions = (JSONArray)jsonFile.get("intervention_policiere");
+
+        return interventions.contains(intervention);
+    }
+
+    static String messageErreur(String fichier, int numeroLigne, String champs){
+        return "Erreur dans le fichier "+ fichier +" à la ligne " + numeroLigne + " : Le champ " + champs + " est manquant.";
+    }
+
+    static ArrayList<String> validerLigne(String[] elements){
+        ArrayList<String> erreurs = new ArrayList<String>();
+
+        if(!verifierArrondissement(elements[3])){
+            erreurs.add(elements[3]);
+        }
+        if(!verifierIntervention(elements[4])){
+            erreurs.add(elements[4]);
+        }
+        return erreurs;
+    }
 }
