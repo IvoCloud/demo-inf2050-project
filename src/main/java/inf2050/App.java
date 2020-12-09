@@ -5,6 +5,7 @@
 
 package inf2050;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 import inf2050.Plainte;
@@ -12,6 +13,9 @@ import inf2050.Plainte;
 import inf2050.Statistique;
 
 import net.sf.json.*;
+
+//****** */
+import java.io.*;
 
 /**
  * Class App
@@ -23,15 +27,27 @@ public class App {
      * @param args args[0] - La destination de lecture.
      * @param args args[1] - La destination de l'écriture.
      */
-    public static void main(String[] args)throws Exception{
-        // String nomFichierIn = args[0];
-        // String nomFichierOut = args[1];
+    public static void main(String[] args){
 
+        try{
         validerLongueurTableau(args,2);
+        
+        String nomFichierIn = args[0];
+        String nomFichierOut = args[1];
 
+        Plaintes plaintes = new Plaintes(nomFichierIn);
 
+        System.out.println(plaintes.getPlaintesRaw());
+            FileWriter writer = new FileWriter("test.csv");
+            writer.write(plaintes.getPlaintesRaw());
+            writer.close();
+            System.out.println("Statistique enregistre");
 
-        System.out.println("Next");
+        }catch(Exception e){
+            System.out.println("Erreur dans la: ");
+            System.out.println(e.getMessage());
+        }
+
 
         // ArrayList<Plainte> plaintes = new ArrayList<>();
         // ArrayList<Statistique> statistiques = new ArrayList<>();

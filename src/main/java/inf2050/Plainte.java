@@ -47,34 +47,7 @@ public class Plainte{
     return (date + " " + heure + " " + parc + " " + arrondissement + " " + description);
   }
 
-  static ArrayList<Plainte> lirePlaintes(String nomFichierIn){
-    ArrayList<Plainte> plaintes = new ArrayList<>();
-    try{
-        int numeroLigne = 1;
-        File fichier = new File("./src/main/ressources/"+"fichier.csv");
-        Scanner scanner = new Scanner(fichier, StandardCharsets.UTF_8.name());
-        if(scanner.hasNext()) scanner.next();
-        while(scanner.hasNextLine()){
-          String ligne = scanner.nextLine();
-          if(!ligne.equals("")){
-              String[] elements = ligne.split(",");
-              ArrayList<String> erreurs = validerLigne(elements);
-              if(erreurs.size() == 0){
-                  plaintes.add(new Plainte(elements[0], elements[1], elements[2], elements[3], elements[4]));
-              }else{
-                  messageErreur(nomFichierIn, numeroLigne, erreurs);
-                  System.exit(0);
-              }
-          }
-          numeroLigne++;
-        }
-        scanner.close();
-    }catch(FileNotFoundException e){
-        System.out.println("Erreur de lecture du fichier: " +e);
-        System.exit(0);
-    }
-    return plaintes;
-  }
+
 
   static boolean verifierDetails(String description, String champ){
     String data = "";
