@@ -51,7 +51,7 @@ public class Plainte{
     ArrayList<Plainte> plaintes = new ArrayList<>();
     try{
         int numeroLigne = 1;
-        File fichier = new File(nomFichierIn);
+        File fichier = new File("./src/main/ressources/"+"fichier.csv");
         Scanner scanner = new Scanner(fichier, StandardCharsets.UTF_8.name());
         if(scanner.hasNext()) scanner.next();
         while(scanner.hasNextLine()){

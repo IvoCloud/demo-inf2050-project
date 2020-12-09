@@ -76,13 +76,15 @@ public class Statistique implements Comparable<Statistique>{
   static boolean ecrireStatistiques(ArrayList<Statistique> statistiques, String nomFichierOut){
     String sortie = "Arrondissement,Nombre d'interventions,Nombre de parcs\n";
     boolean success = false;
-
+    
     Collections.sort(statistiques);
     for(Statistique statistique: statistiques){
       sortie = sortie.concat(statistique.getArrondissement() + "," + statistique.getIntervention()+"\n");
     }
+
+    System.out.println(sortie);
     try{
-      FileWriter writer = new FileWriter(nomFichierOut);
+      FileWriter writer = new FileWriter("tets.csv");
       writer.write(sortie);
       writer.close();
       System.out.println("Statistique enregistre");
