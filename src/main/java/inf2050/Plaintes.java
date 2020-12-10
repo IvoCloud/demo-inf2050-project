@@ -16,13 +16,17 @@ public class Plaintes{
   private ArrayList<Plainte> plaintes;
   private String texteBrut;
   private String[] entetes;
+  private String[] lignesPlaintes;
 
   public Plaintes(){
     this.texteBrut = "";
   }
 
   public Plaintes(String nomFichierIn)throws Exception{
-    this.texteBrut = lireFichier(nomFichierIn);
+    texteBrut = lireFichier(nomFichierIn);
+    entetes = extraireChampsEntetes(texteBrut);
+    entetes = validerChampsEntetes(entetes);
+    lignesPlaintes = extraireLignesPlaintes(texteBrut);
   }
 
   public ArrayList<Plainte> getPlaintes(){
@@ -78,6 +82,15 @@ public class Plaintes{
     }
     return entetes;
   }
+  
+  String[] extraireLignesPlaintes(String texteBrut)throws Exception{
+    String[] lignesPlaintes = texteBrut.split("\n");
+    if(lignesPlaintes.length<2){
+      throw new Exception("Il n'y a pas des plaintes");
+    }
+    lignesPlaintes = Arrays.copyOfRange(lignesPlaintes,1,lignesPlaintes.length);
+    return lignesPlaintes;
+  } 
   // ArrayList<Plaintes> separerTexteCsvEnListePlaintes(String texteBrutes){
   //   ArrayList<Plaintes> listePlaintes = new ArrayList<>();
 

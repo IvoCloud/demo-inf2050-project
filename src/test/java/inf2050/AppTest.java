@@ -124,10 +124,34 @@ class AppTest {
     assertArrayEquals(new String[]{"Date","Heure","Parc","Arrondissement","Description"}, resultats);
   }
 
-  // @Test
-  // void testGetExceptionMsg(){
-    
-  // }
+  @Test
+  void testExtraireLignesPlaintes_LignesPlaintesVides(){
+    String texteBrut = "Date, Heure \n";
+    String[] resultats = new String[]{};
+    Plaintes plaintes = new Plaintes();
+    String err = "";
+    try{
+      resultats = plaintes.extraireLignesPlaintes(texteBrut);
+    }catch(Exception e){
+      err = e.getMessage();
+    }
+    assertEquals(0, resultats.length);
+  }
+
+
+  @Test
+  void testExtraireLignesPlaintes_UneLignePlaintes(){
+    String texteBrut = "Date, Heure \n Plainte";
+    String[] resultats = new String[]{};
+    Plaintes plaintes = new Plaintes();
+    String err = "";
+    try{
+      resultats = plaintes.extraireLignesPlaintes(texteBrut);
+    }catch(Exception e){
+      err = e.getMessage();
+    }
+    assertEquals(1, resultats.length);
+  }
   // @Test
   // void testValiderSizePlaintes() {
   //   ArrayList<Plainte> plaintes = Plainte.lirePlaintes(fichierIn);
