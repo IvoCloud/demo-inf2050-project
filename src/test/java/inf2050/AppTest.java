@@ -36,7 +36,7 @@ class AppTest {
   }
 
   @Test
-  void testOneArgsMain(){
+  void testUnArgsMain(){
     String[] args = new String[]{"fichier.txt"};
     String err = "";
     try {
@@ -48,7 +48,7 @@ class AppTest {
   }
 
   @Test
-  void testTwoArgsMain(){
+  void testDeuxArgsMain(){
     String[] args = new String[]{"fichierIn.txt","fichierOut.txt"};
     String err = "";
     try {
@@ -60,7 +60,7 @@ class AppTest {
   }
 
   @Test
-  void testThreeArgsMain(){
+  void testTroisArgsMain(){
     String[] args = new String[]{"fichierIn.txt","fichierOut.txt","texte"};
     String err = "";
     try {
@@ -71,11 +71,58 @@ class AppTest {
     assertEquals("Longueur des args[] n'est pas 2",err);
   }
 
-  // @Test
-  // void testArgsNotString(){
-  //   String[] args = new String[]{"fichierIn.txt","fichierOut.txt"};
-  //   assertTrue(App.validerLongueurArgs(args));
-  // }
+  @Test
+  void testExtraireEntete_ChampsIncomplets(){
+    String texteBrut = "";
+    String err="";
+    Plaintes plaintes = new Plaintes();
+    try{
+      plaintes.extraireChampsEntetes(texteBrut);
+    }catch(Exception e){
+      err = e.getMessage();
+    }
+    assertEquals("Il n'y a pas suffisamment des champs d'entête",err);
+  }
+
+  @Test
+  void testExtraireEntete_ChampsComplets(){
+    String texteBrut = "Date, Heure, Desc, Arrondiss, Parc \n 23-01,22:10,Bruit,";
+    String err="";
+    Plaintes plaintes = new Plaintes();
+    try{
+      plaintes.extraireChampsEntetes(texteBrut);
+    }catch(Exception e){
+      err = e.getMessage();
+    }
+    assertNotEquals("Il n'y a pas suffisamment des champs d'entête",err);
+  }
+
+  @Test
+  void testExtraireEnteteEntete_EntetesInvalides(){
+    String[] entetes = {"Déscription", "Champ", "Date", "_Text_", "Pays"};
+    Plaintes plaintes = new Plaintes();
+    String err = "";
+    try{
+      plaintes.validerChampsEntetes(entetes);
+    }catch(Exception e){
+      err = e.getMessage();
+    }
+    assertEquals("Les champs d'entête ne sont pas valides", err);
+  }
+
+  @Test
+  void testExtraireEnteteEntete_EntetesValides(){
+    String[] entetes = {"Date","Heure","Parc","Arrondissement","Description"};
+    String[] resultats = new String[]{};
+    Plaintes plaintes = new Plaintes();
+    String err = "";
+    try{
+      resultats = plaintes.validerChampsEntetes(entetes);
+    }catch(Exception e){
+      err = e.getMessage();
+    }
+    assertArrayEquals(new String[]{"Date","Heure","Parc","Arrondissement","Description"}, resultats);
+  }
 
   // @Test
   // void testGetExceptionMsg(){

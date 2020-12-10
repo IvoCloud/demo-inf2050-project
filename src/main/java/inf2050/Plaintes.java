@@ -14,10 +14,15 @@ import net.sf.json.*;
 public class Plaintes{
 
   private ArrayList<Plainte> plaintes;
-  private String plaintesRaw;
+  private String texteBrut;
+  private String[] entetes;
+
+  public Plaintes(){
+    this.texteBrut = "";
+  }
 
   public Plaintes(String nomFichierIn)throws Exception{
-    this.plaintesRaw = lireFichier(nomFichierIn);
+    this.texteBrut = lireFichier(nomFichierIn);
   }
 
   public ArrayList<Plainte> getPlaintes(){
@@ -28,12 +33,12 @@ public class Plaintes{
     this.plaintes = plaintes;
   }
 
-  public String getPlaintesRaw(){
-    return plaintesRaw;
+  public String getTexteBrut(){
+    return texteBrut;
   }
 
-  public void setPlaintesRaw(String plaintesRaw){
-    this.plaintesRaw = plaintesRaw;
+  public void setTexteBrut(String texteBrut){
+    this.texteBrut = texteBrut;
   }
 
   String lireFichier(String nomFichierIn)throws Exception{
@@ -48,10 +53,37 @@ public class Plaintes{
     }catch(FileNotFoundException e){
       throw new Exception("Le fichier d'entrée n'existe pas.");
     }
+    if(data==""){
+      throw new Exception("Le fichier d'entrée est vide");
+    }
     return data;
   }
 
+  String[] extraireChampsEntetes(String texteBrut)throws Exception{
+    String ligneEntete = texteBrut.split("\n")[0];
+    String[] entetes = ligneEntete.split(",");
+    if(entetes.length != 5){
+      throw new Exception("Il n'y a pas suffisamment des champs d'entête");
+    }
+    return entetes;
+  }
   
+  String[] validerChampsEntetes(String[] entetes)throws Exception{
+    String[] contrainteEntetes = {"Date","Heure","Parc","Arrondissement","Description"};
+    for (String string : entetes) {
+      string = string.trim();
+    }
+    if(Arrays.compare(entetes, contrainteEntetes)!=0){
+      throw new Exception("Les champs d'entête ne sont pas valides");
+    }
+    return entetes;
+  }
+  // ArrayList<Plaintes> separerTexteCsvEnListePlaintes(String texteBrutes){
+  //   ArrayList<Plaintes> listePlaintes = new ArrayList<>();
+
+
+  //   return listePlaintes;
+  // }
   // ArrayList<Plainte> convertir(String nomFichierIn){
   //   try{
   //       int numeroLigne = 1;

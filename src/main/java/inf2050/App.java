@@ -37,9 +37,9 @@ public class App {
 
         Plaintes plaintes = new Plaintes(nomFichierIn);
 
-        System.out.println(plaintes.getPlaintesRaw());
+        System.out.println(plaintes.getTexteBrut());
             FileWriter writer = new FileWriter("test.csv");
-            writer.write(plaintes.getPlaintesRaw());
+            writer.write(plaintes.getTexteBrut());
             writer.close();
             System.out.println("Statistique enregistre");
 
