@@ -91,7 +91,13 @@ public class Plaintes{
     lignesPlaintes = Arrays.copyOfRange(lignesPlaintes,1,lignesPlaintes.length);
     return lignesPlaintes;
   } 
-  // ArrayList<Plaintes> separerTexteCsvEnListePlaintes(String texteBrutes){
+  
+  // String[] validerLignesPlaintes(String[] tableauPlaintes, String[] contrainteArrondissements, String[] contrainteInterventions)throws Exception{
+
+
+  // }
+
+  // ArrayList<Plaintes> separerTSexteCsvEnListePlaintes(String texteBrutes){
   //   ArrayList<Plaintes> listePlaintes = new ArrayList<>();
 
 
