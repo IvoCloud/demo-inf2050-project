@@ -1,5 +1,7 @@
 package inf2050;
 
+import inf2050.IO.*;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

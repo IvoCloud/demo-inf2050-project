@@ -1,5 +1,7 @@
 package inf2050;
 
+
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -87,6 +89,44 @@ public class PlaintesTest {
       err = e.getMessage();
     }
     assertEquals(1, resultats.length);
+  }
+
+  @Test
+  void testExtraireLignesPlaintes_DeuxLignesPlaintes() {
+    String texteBrut = "Date, Heure \n Plainte, Vol \n Bruit, 22:30, Montreal";
+    String[] resultats = new String[] {};
+
+    String err = "";
+    try {
+      resultats = plaintes.extraireLignesPlaintes(texteBrut);
+    } catch (Exception e) {
+      err = e.getMessage();
+    }
+    assertEquals(2, resultats.length);
+  }
+
+  @Test
+  void testlignePlainteEnTableau_Valide() {
+    String[] tableauLignesPlaintes = new String[]{
+      "2020-05-05, 22:30, Parc Carignan, Montreal, Vol",
+      "2020-11-25, 15:00, Parc Carignan, Montreal, Bruit",
+      "2020-08-15, 9:20, Parc Carignan, Montreal, Bagarre"
+    };
+    String[][] resultatAttendu = {
+      { "2020-05-05", "22:30", "Parc Carignan", "Montreal", "Vol" },
+      {"2020-11-25", "15:00", "Parc Carignan", "Montreal", "Bruit"},
+      {"2020-08-15", "9:20", "Parc Carignan", "Montreal", "Bagarre"},
+    };
+
+    String[][] resultats = new String[][]{};
+    String err = "";
+    try {
+      resultats = plaintes.lignePlainteEnTableau(tableauLignesPlaintes);
+    } catch (Exception e) {
+      err = e.getMessage();
+    }
+
+    assertArrayEquals(resultatAttendu[0], resultats[0]);
   }
 
 }

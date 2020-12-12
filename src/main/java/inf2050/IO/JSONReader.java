@@ -1,8 +1,6 @@
-package inf2050;
+package inf2050.IO;
 
 import java.util.*;
-
-import org.apache.commons.lang.ObjectUtils.Null;
 
 import java.io.*;
 

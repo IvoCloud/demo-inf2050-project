@@ -1,10 +1,8 @@
 package inf2050;
 
+import inf2050.IO.*;
+
 import java.time.*;
-
-import java.io.*;
-
-import java.nio.charset.StandardCharsets;
 
 import java.util.*;
 
@@ -20,7 +18,7 @@ public class Plaintes{
   }
 
   public Plaintes(String nomFichierIn)throws Exception{
-    texteBrut = lireFichier(nomFichierIn);
+    texteBrut = Fichier.lireFichier(nomFichierIn);
     entetes = extraireChampsEntetes(texteBrut);
     entetes = validerChampsEntetes(entetes);
     lignesPlaintes = extraireLignesPlaintes(texteBrut);
@@ -40,24 +38,6 @@ public class Plaintes{
 
   public void setTexteBrut(String texteBrut){
     this.texteBrut = texteBrut;
-  }
-
-  String lireFichier(String nomFichierIn)throws Exception{
-    String data="";
-    try{
-      File fichier = new File("./src/main/ressources/"+nomFichierIn);
-      Scanner scanner = new Scanner(fichier, StandardCharsets.UTF_8.name());
-      while(scanner.hasNextLine()){
-        data += scanner.nextLine() + '\n';
-      }
-      scanner.close();
-    }catch(FileNotFoundException e){
-      throw new Exception("Le fichier d'entrée n'existe pas.");
-    }
-    if(data==""){
-      throw new Exception("Le fichier d'entrée est vide");
-    }
-    return data;
   }
 
   String[] extraireChampsEntetes(String texteBrut)throws Exception{
@@ -87,12 +67,23 @@ public class Plaintes{
     }
     lignesPlaintes = Arrays.copyOfRange(lignesPlaintes,1,lignesPlaintes.length);
     return lignesPlaintes;
-  } 
+  }
   
-  // String[] validerLignesPlaintes(String[] tableauPlaintes, String[] contrainteArrondissements, String[] contrainteInterventions)throws Exception{
+  String[][] lignePlainteEnTableau(String[] tableauLignesPlaintes)throws Exception{
+    int longueur = tableauLignesPlaintes.length;
+    String[][] tableauPlaintesSepares = new String[longueur][5];
 
-  //   String path = "./src/main/ressources/json/"+fileName;
-  // }
+    for (int i=0;i<longueur;i++) {
+      String[] tableauChaquePlainte = tableauLignesPlaintes[i].split(",");
+      if(tableauChaquePlainte.length<5 || tableauChaquePlainte.length>5){
+        throw new Exception("Erreur à la ligne " + i+2 + ".\n Il n'y a pas 5 valeurs dans la ligne.");
+      }
+      for(int k=0; k<tableauChaquePlainte.length;k++){
+        tableauPlaintesSepares[i][k] = tableauChaquePlainte[k].trim();
+      }
+    }
+    return tableauPlaintesSepares;
+  }
 
   // ArrayList<Plaintes> separerTSexteCsvEnListePlaintes(String texteBrutes){
   //   ArrayList<Plaintes> listePlaintes = new ArrayList<>();

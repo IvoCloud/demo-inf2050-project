@@ -4,8 +4,6 @@ import java.util.*;
 
 import java.io.*;
 
-import inf2050.Plainte;
-
 
 /**
  * Class Planinte enregistre chaque ligne du fichier en entree 
