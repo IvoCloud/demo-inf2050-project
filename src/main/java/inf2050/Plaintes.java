@@ -8,9 +8,6 @@ import java.nio.charset.StandardCharsets;
 
 import java.util.*;
 
-import net.sf.json.*;
-
-
 public class Plaintes{
 
   private ArrayList<Plainte> plaintes;
@@ -94,7 +91,7 @@ public class Plaintes{
   
   // String[] validerLignesPlaintes(String[] tableauPlaintes, String[] contrainteArrondissements, String[] contrainteInterventions)throws Exception{
 
-
+  //   String path = "./src/main/ressources/json/"+fileName;
   // }
 
   // ArrayList<Plaintes> separerTSexteCsvEnListePlaintes(String texteBrutes){
