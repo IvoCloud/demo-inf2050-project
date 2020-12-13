@@ -9,16 +9,15 @@ import java.util.*;
 public class Plaintes{
 
   private ArrayList<Plainte> plaintes;
-  private String texteBrut;
   private String[] entetes;
   private String[] lignesPlaintes;
 
   public Plaintes(){
-    this.texteBrut = "";
+    
   }
 
   public Plaintes(String nomFichierIn)throws Exception{
-    texteBrut = Fichier.lireFichier(nomFichierIn);
+    String texteBrut = Fichier.lireFichier(nomFichierIn);
     entetes = extraireChampsEntetes(texteBrut);
     entetes = validerChampsEntetes(entetes);
     lignesPlaintes = extraireLignesPlaintes(texteBrut);
@@ -32,15 +31,7 @@ public class Plaintes{
     this.plaintes = plaintes;
   }
 
-  public String getTexteBrut(){
-    return texteBrut;
-  }
-
-  public void setTexteBrut(String texteBrut){
-    this.texteBrut = texteBrut;
-  }
-
-  String[] extraireChampsEntetes(String texteBrut)throws Exception{
+  static String[] extraireChampsEntetes(String texteBrut)throws Exception{
     String ligneEntete = texteBrut.split("\n")[0];
     String[] entetes = ligneEntete.split(",");
     if(entetes.length != 5){
@@ -49,7 +40,7 @@ public class Plaintes{
     return entetes;
   }
   
-  String[] validerChampsEntetes(String[] entetes)throws Exception{
+  static String[] validerChampsEntetes(String[] entetes)throws Exception{
     String[] contrainteEntetes = {"Date","Heure","Parc","Arrondissement","Description"};
     for (String string : entetes) {
       string = string.trim();
@@ -60,7 +51,7 @@ public class Plaintes{
     return entetes;
   }
   
-  String[] extraireLignesPlaintes(String texteBrut)throws Exception{
+  static String[] extraireLignesPlaintes(String texteBrut)throws Exception{
     String[] lignesPlaintes = texteBrut.split("\n");
     if(lignesPlaintes.length<2){
       throw new Exception("Il n'y a pas des plaintes");
@@ -69,14 +60,14 @@ public class Plaintes{
     return lignesPlaintes;
   }
   
-  String[][] lignePlainteEnTableau(String[] tableauLignesPlaintes)throws Exception{
+  static String[][] lignePlainteEnTableau(String[] tableauLignesPlaintes)throws Exception{
     int longueur = tableauLignesPlaintes.length;
     String[][] tableauPlaintesSepares = new String[longueur][5];
 
     for (int i=0;i<longueur;i++) {
       String[] tableauChaquePlainte = tableauLignesPlaintes[i].split(",");
       if(tableauChaquePlainte.length<5 || tableauChaquePlainte.length>5){
-        throw new Exception("Erreur à la ligne " + i+2 + ".\n Il n'y a pas 5 valeurs dans la ligne.");
+        throw new Exception("Erreur à la ligne " + (i+1) + ".\n Il n'y a pas 5 valeurs dans la ligne.");
       }
       for(int k=0; k<tableauChaquePlainte.length;k++){
         tableauPlaintesSepares[i][k] = tableauChaquePlainte[k].trim();
@@ -85,6 +76,19 @@ public class Plaintes{
     return tableauPlaintesSepares;
   }
 
+  static ArrayList<Plainte> creerListePlainte(String[][] tableuPlaintes)throws Exception{
+    ArrayList<Plainte> listePlaintes = new ArrayList<>();
+    for(int i=0; i<tableuPlaintes.length; i++){
+      try {
+        Plainte plainte = new Plainte(tableuPlaintes[i]);
+        listePlaintes.add(plainte);
+      } catch (Exception e) {
+        String errMsg = "\nErreur à la ligne " + (i+1) + ". " + e.getMessage();
+        throw new Exception(errMsg); 
+      }
+    }
+    return listePlaintes;
+  }
   // ArrayList<Plaintes> separerTSexteCsvEnListePlaintes(String texteBrutes){
   //   ArrayList<Plaintes> listePlaintes = new ArrayList<>();
 

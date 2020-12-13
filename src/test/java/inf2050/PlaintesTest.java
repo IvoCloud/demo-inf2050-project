@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PlaintesTest {
+import java.util.ArrayList;
 
-  Plaintes plaintes = new Plaintes();
+public class PlaintesTest {
 
   @Test
   void testExtraireEntete_ChampsIncomplets() {
@@ -16,7 +16,7 @@ public class PlaintesTest {
     String err = "";
 
     try {
-      plaintes.extraireChampsEntetes(texteBrut);
+      Plaintes.extraireChampsEntetes(texteBrut);
     } catch (Exception e) {
       err = e.getMessage();
     }
@@ -29,7 +29,7 @@ public class PlaintesTest {
     String err = "";
 
     try {
-      plaintes.extraireChampsEntetes(texteBrut);
+      Plaintes.extraireChampsEntetes(texteBrut);
     } catch (Exception e) {
       err = e.getMessage();
     }
@@ -42,7 +42,7 @@ public class PlaintesTest {
 
     String err = "";
     try {
-      plaintes.validerChampsEntetes(entetes);
+      Plaintes.validerChampsEntetes(entetes);
     } catch (Exception e) {
       err = e.getMessage();
     }
@@ -56,7 +56,7 @@ public class PlaintesTest {
 
     String err = "";
     try {
-      resultats = plaintes.validerChampsEntetes(entetes);
+      resultats = Plaintes.validerChampsEntetes(entetes);
     } catch (Exception e) {
       err = e.getMessage();
     }
@@ -70,7 +70,7 @@ public class PlaintesTest {
 
     String err = "";
     try {
-      resultats = plaintes.extraireLignesPlaintes(texteBrut);
+      resultats = Plaintes.extraireLignesPlaintes(texteBrut);
     } catch (Exception e) {
       err = e.getMessage();
     }
@@ -84,7 +84,7 @@ public class PlaintesTest {
 
     String err = "";
     try {
-      resultats = plaintes.extraireLignesPlaintes(texteBrut);
+      resultats = Plaintes.extraireLignesPlaintes(texteBrut);
     } catch (Exception e) {
       err = e.getMessage();
     }
@@ -98,7 +98,7 @@ public class PlaintesTest {
 
     String err = "";
     try {
-      resultats = plaintes.extraireLignesPlaintes(texteBrut);
+      resultats = Plaintes.extraireLignesPlaintes(texteBrut);
     } catch (Exception e) {
       err = e.getMessage();
     }
@@ -121,12 +121,116 @@ public class PlaintesTest {
     String[][] resultats = new String[][]{};
     String err = "";
     try {
-      resultats = plaintes.lignePlainteEnTableau(tableauLignesPlaintes);
+      resultats = Plaintes.lignePlainteEnTableau(tableauLignesPlaintes);
     } catch (Exception e) {
       err = e.getMessage();
     }
+    assertArrayEquals(resultatAttendu, resultats);
+  }
 
-    assertArrayEquals(resultatAttendu[0], resultats[0]);
+  @Test
+  void testlignePlainteEnTableau_QuatreValeurs() {
+    String[] tableauLignesPlaintes = new String[]{
+      "2020-05-05, 22:30, Parc Carignan, Montreal",
+      "2020-11-25, 15:00, Parc Carignan, Montreal, Bruit",
+    };
+    String msgErrAttendu = "Erreur à la ligne 1.\n Il n'y a pas 5 valeurs dans la ligne.";
+
+    String[][] resultats = new String[][]{};
+    String err = "";
+    try {
+      resultats = Plaintes.lignePlainteEnTableau(tableauLignesPlaintes);
+    } catch (Exception e) {
+      err = e.getMessage();
+    }
+    assertEquals(msgErrAttendu, err);
+  }
+
+  @Test
+  void testlignePlainteEnTableau_ValeurVide() {
+    String[] tableauLignesPlaintes = new String[]{
+      "",
+      "2020-11-25, 15:00, Parc Carignan, Montreal, Bruit",
+    };
+    String msgErrAttendu = "Erreur à la ligne 1.\n Il n'y a pas 5 valeurs dans la ligne.";
+
+    String[][] resultats = new String[][]{};
+    String err = "";
+    try {
+      resultats = Plaintes.lignePlainteEnTableau(tableauLignesPlaintes);
+    } catch (Exception e) {
+      err = e.getMessage();
+    }
+    assertEquals(msgErrAttendu, err);
+  }
+
+  @Test
+  void testCreerListePlainte_Valide() {
+    String[][] tableuPlaintes = {
+      { "2020-05-05", "22:30", "Parc Carignan", "Montreal", "Vol" },
+      {"2020-11-25", "15:00", "Parc Carignan", "Montreal", "Bruit"},
+    };
+
+    ArrayList<Plainte> listePlaintesAttendue = new ArrayList<>();
+    listePlaintesAttendue.add(new Plainte("2020-05-05","22:30","Parc Carignan","Montreal","Vol"));
+    listePlaintesAttendue.add(new Plainte("2020-11-25","15:00","Parc Carignan","Montreal","Bruit"));
+
+    ArrayList<Plainte> resultats = new ArrayList<>();
+
+    String err = "";
+    try {
+      resultats = Plaintes.creerListePlainte(tableuPlaintes);
+    } catch (Exception e) {
+      err = e.getMessage();
+    }
+    
+    assertEquals(listePlaintesAttendue.get(0).getDate(), resultats.get(0).getDate());
+    assertEquals(listePlaintesAttendue.get(0).getHeure(), resultats.get(0).getHeure());
+    assertEquals(listePlaintesAttendue.get(0).getParc(), resultats.get(0).getParc());
+    assertEquals(listePlaintesAttendue.get(0).getArrondissement(), resultats.get(0).getArrondissement());
+    assertEquals(listePlaintesAttendue.get(0).getDescription(), resultats.get(0).getDescription());
+
+    assertEquals(listePlaintesAttendue.get(1).getDate(), resultats.get(1).getDate());
+    assertEquals(listePlaintesAttendue.get(1).getHeure(), resultats.get(1).getHeure());
+    assertEquals(listePlaintesAttendue.get(1).getParc(), resultats.get(1).getParc());
+    assertEquals(listePlaintesAttendue.get(1).getArrondissement(), resultats.get(1).getArrondissement());
+    assertEquals(listePlaintesAttendue.get(1).getDescription(), resultats.get(1).getDescription());
+  
+  }
+
+
+  @Test
+  void testCreerListePlainte_() {
+    String[][] tableuPlaintes = {
+      { "2020-05-05", "22:30", "Parc Carignan", "Montreal", "Vol" },
+      {"2020-11-25", "15:00", "Parc Carignan", "Montreal", "Bruit"},
+    };
+
+    ArrayList<Plainte> listePlaintesAttendue = new ArrayList<>();
+    listePlaintesAttendue.add(new Plainte("2020-05-05","22:30","Parc Carignan","Montreal","Vol"));
+    listePlaintesAttendue.add(new Plainte("2020-11-25","15:00","Parc Carignan","Montreal","Bruit"));
+
+    ArrayList<Plainte> resultats = new ArrayList<>();
+
+    String err = "";
+    try {
+      resultats = Plaintes.creerListePlainte(tableuPlaintes);
+    } catch (Exception e) {
+      err = e.getMessage();
+    }
+    
+    assertEquals(listePlaintesAttendue.get(0).getDate(), resultats.get(0).getDate());
+    assertEquals(listePlaintesAttendue.get(0).getHeure(), resultats.get(0).getHeure());
+    assertEquals(listePlaintesAttendue.get(0).getParc(), resultats.get(0).getParc());
+    assertEquals(listePlaintesAttendue.get(0).getArrondissement(), resultats.get(0).getArrondissement());
+    assertEquals(listePlaintesAttendue.get(0).getDescription(), resultats.get(0).getDescription());
+
+    assertEquals(listePlaintesAttendue.get(1).getDate(), resultats.get(1).getDate());
+    assertEquals(listePlaintesAttendue.get(1).getHeure(), resultats.get(1).getHeure());
+    assertEquals(listePlaintesAttendue.get(1).getParc(), resultats.get(1).getParc());
+    assertEquals(listePlaintesAttendue.get(1).getArrondissement(), resultats.get(1).getArrondissement());
+    assertEquals(listePlaintesAttendue.get(1).getDescription(), resultats.get(1).getDescription());
+  
   }
 
 }
