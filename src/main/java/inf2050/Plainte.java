@@ -66,36 +66,26 @@ public class Plainte {
     return Arrays.stream(possibilitesValides).anyMatch(texte::equals);
   }
 
-  // // Date,Heure,Parc,Arrondissement,Description
-  // public Plainte creerPlainteAvecValidation(String[] elementsPlainte, String[] arrondissementsValides, String[] descriptionsValides) throws Exception{
-  //   final String LE_CHAMPS = "Le champs ";
-  //   final String PAS_VALIDE = " n'est pas valide.";
-  //   final String EST_VIDE = " est vide.";
-  //   if (elementsPlainte[0] == "") {
-  //     throw new Exception(LE_CHAMPS+"date"+EST_VIDE);
-  //   }
-  //   if (elementsPlainte[1] == "") {
-  //     throw new Exception(LE_CHAMPS+"heure"+EST_VIDE);
-  //   }
-  //   if (elementsPlainte[2] == "") {
-  //     throw new Exception(LE_CHAMPS+"parc"+EST_VIDE);
-  //   }
-  //   if (elementsPlainte[3] == "") {
-  //     throw new Exception(LE_CHAMPS+"arrondissement"+EST_VIDE);
-  //   }
-  //   if(validerSiExisteDansTableau(elementsPlainte[3], arrondissementsValides)){
-  //     throw new Exception(LE_CHAMPS+"arrondissement"+PAS_VALIDE);
-  //   }
-  //   if (elementsPlainte[4] == "") {
-  //     throw new Exception(LE_CHAMPS+"description"+EST_VIDE);
-  //   }
-  //   if(validerSiExisteDansTableau(elementsPlainte[4], descriptionsValides)){
-  //     throw new Exception(LE_CHAMPS+"description"+PAS_VALIDE);
-  //   }
+  public Plainte creerPlainteAvecValidation(String[] elementsPlainte, String[] champsEntete, String[] arrondissementsValides, String[] descriptionsValides) throws Exception{
+    final String LE_CHAMPS = "Le champs ";
+    final String PAS_VALIDE = " n'est pas valide.";
+    final String EST_VIDE = " est vide.";
+    for(int i=0;i<elementsPlainte.length;i++){
+      if(elementsPlainte[i]==""){
+        throw new Exception(LE_CHAMPS + champsEntete[i] + EST_VIDE);
+      }
+    }
+    if(!validerSiExisteDansTableau(elementsPlainte[3], arrondissementsValides)){
+      throw new Exception(LE_CHAMPS+"arrondissement"+PAS_VALIDE);
+    }
 
-  //   Plainte plainte = new Plainte(elementsPlainte);
-  //   return plainte;
-  // }
+    if(!validerSiExisteDansTableau(elementsPlainte[4], descriptionsValides)){
+      throw new Exception(LE_CHAMPS+"description"+PAS_VALIDE);
+    }
+
+    Plainte plainte = new Plainte(elementsPlainte);
+    return plainte;
+  }
 
   // static boolean verifierDetails(String description, String champ){
   // String data = "";

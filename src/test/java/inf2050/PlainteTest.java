@@ -42,6 +42,10 @@ public class PlainteTest {
     "Port d'arme prohibée"
   };
 
+  final String[] champsEntete = new String[]{"Date","Heure","Parc","Arrondissement","Description"};
+  final String LE_CHAMPS = "Le champs ";
+  final String PAS_VALIDE = " n'est pas valide.";
+  final String EST_VIDE = " est vide.";
 
   @Test
   void testValiderSiExisteDansTableau_Valide(){
@@ -61,5 +65,41 @@ public class PlainteTest {
   @Test
   void testValiderSiExisteDansTableau_TabVide(){
     assertFalse(plainte.validerSiExisteDansTableau("Verdun", new String[]{}));
+  }
+
+  @Test
+  void testValiderSiExisteDansTableau_Vide2(){
+    assertTrue(plainte.validerSiExisteDansTableau("Ahuntsic-Cartierville", ARRONDISSEMENTS));
+  }
+
+
+  @Test
+  void testCreerPlainteAvecValidation_Valide(){
+    Plainte plainteAttendue = new Plainte("2020-09-01","20:41","Parc Camille","Ahuntsic-Cartierville","Vente de drogues");
+
+    String[] elementsPlainte = new String[]{"2020-09-01","20:41","Parc Camille","Ahuntsic-Cartierville","Vente de drogues"};
+    try {
+      Plainte resultatPlainte = plainte.creerPlainteAvecValidation(elementsPlainte, champsEntete,ARRONDISSEMENTS, INTERVENTIONS);
+      assertEquals(plainteAttendue.getHeure(), resultatPlainte.getHeure());
+      assertEquals(plainteAttendue.getDate(), resultatPlainte.getDate());
+      assertEquals(plainteAttendue.getParc(), resultatPlainte.getParc());
+      assertEquals(plainteAttendue.getArrondissement(), resultatPlainte.getArrondissement());
+      assertEquals(plainteAttendue.getDescription(), resultatPlainte.getDescription());
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
+  @Test
+  void testCreerPlainteAvecValidation_ChampDateVide(){
+    String errAttendue = LE_CHAMPS + "Date" + EST_VIDE;
+    String[] elementsPlainte = new String[]{"","20:41","Parc Camille","Ahuntsic-Cartierville","Vente de drogues"};
+    String errResultat="";
+    try {
+      plainte.creerPlainteAvecValidation(elementsPlainte, champsEntete,ARRONDISSEMENTS, INTERVENTIONS);
+    } catch (Exception e) {
+      errResultat = e.getMessage();
+    }
+    assertEquals(errAttendue, errResultat);
   }
 }
