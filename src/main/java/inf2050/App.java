@@ -5,6 +5,8 @@
 
 package inf2050;
 
+import inf2050.IO.*;
+
 import java.io.FileNotFoundException;
 import java.util.*;
 
@@ -30,16 +32,14 @@ public class App {
     public static void main(String[] args){
 
         try{
-        validerLongueurTableau(args,2);
-        
-        String nomFichierIn = args[0];
-        String nomFichierOut = args[1];
+            validerLongueurTableau(args,2);
+            String nomFichierIn = args[0];
+            String nomFichierOut = args[1];
 
-        Plaintes plaintes = new Plaintes(nomFichierIn);
+            Plaintes plaintes = new Plaintes(nomFichierIn);
 
-        System.out.println(plaintes.getTexteBrut());
             FileWriter writer = new FileWriter("test.csv");
-            writer.write(plaintes.getTexteBrut());
+            // writer.write(plaintes.getTexteBrut());
             writer.close();
             System.out.println("Statistique enregistre");
 

@@ -10,6 +10,44 @@ import java.util.ArrayList;
 
 public class PlaintesTest {
 
+  final String[] ENTETES = new String[]{ "Date", "Heure", "Parc", "Arrondissement", "Description" };
+  final String[] ARRONDISSEMENTS = new String[]{
+    "Ahuntsic-Cartierville",
+    "Anjou",
+    "Côte-des-Neiges—Notre-Dame-de-Grâce",
+    "Lachine",
+    "LaSalle",
+    "Le Plateau-Mont-Royal",
+    "Le Sud-Ouest",
+    "L'Île-Bizard–Sainte-Geneviève",
+    "Mercier–Hochelaga-Maisonneuve",
+    "Montréal-Nord",
+    "Outremont",
+    "Pierrefonds-Roxboro",
+    "Rivière-des-Prairies–Pointe-aux-Trembles",
+    "Rosemont–La Petite-Patrie",
+    "Saint-Laurent",
+    "Saint-Léonard",
+    "Verdun",
+    "Ville-Marie",
+    "Villeray–Saint-Michel–Parc-Extension"
+  };
+
+  final String[] INTERVENTIONS = new String [] {
+    "Vol de véhicule à moteur",
+    "Méfait",
+    "Vols qualifiés",
+    "Vol dans / sur véhicule à moteur",
+    "Introduction",
+    "Infractions entrainant la mort",
+    "Vente de drogues",
+    "Bagarre",
+    "Manifestation illégale",
+    "Possession / consommation de stupéfiant",
+    "Port d'arme prohibée"
+  };
+
+
   @Test
   void testExtraireEntete_ChampsIncomplets() {
     String texteBrut = "";
@@ -167,19 +205,45 @@ public class PlaintesTest {
   @Test
   void testCreerListePlainte_Valide() {
     String[][] tableuPlaintes = {
-      { "2020-05-05", "22:30", "Parc Carignan", "Montreal", "Vol" },
-      {"2020-11-25", "15:00", "Parc Carignan", "Montreal", "Bruit"},
+      { "2020-05-05", "22:30", "Parc Carignan", "Outremont", "Bagarre" },
     };
 
     ArrayList<Plainte> listePlaintesAttendue = new ArrayList<>();
-    listePlaintesAttendue.add(new Plainte("2020-05-05","22:30","Parc Carignan","Montreal","Vol"));
-    listePlaintesAttendue.add(new Plainte("2020-11-25","15:00","Parc Carignan","Montreal","Bruit"));
+    listePlaintesAttendue.add(new Plainte("2020-05-05", "22:30", "Parc Carignan", "Outremont", "Bagarre"));
+
+    ArrayList<Plainte> resultats = new ArrayList<>();
+
+    try {
+      resultats = Plaintes.creerListePlainte(tableuPlaintes,ENTETES,ARRONDISSEMENTS,INTERVENTIONS);
+    } catch (Exception e) {
+      e.getMessage();
+    }
+    
+    assertEquals(listePlaintesAttendue.get(0).getDate(), resultats.get(0).getDate());
+    assertEquals(listePlaintesAttendue.get(0).getHeure(), resultats.get(0).getHeure());
+    assertEquals(listePlaintesAttendue.get(0).getParc(), resultats.get(0).getParc());
+    assertEquals(listePlaintesAttendue.get(0).getArrondissement(), resultats.get(0).getArrondissement());
+    assertEquals(listePlaintesAttendue.get(0).getDescription(), resultats.get(0).getDescription());
+  
+  }
+
+
+  @Test
+  void testCreerListePlainte_Valide2() {
+    String[][] tableuPlaintes = {
+      { "2020-05-05", "22:30", "Parc Carignan", "Le Sud-Ouest", "Vols qualifiés" },
+      {"2020-05-05", "22:30", "Parc Carignan", "Outremont", "Bagarre"},
+    };
+
+    ArrayList<Plainte> listePlaintesAttendue = new ArrayList<>();
+    listePlaintesAttendue.add(new Plainte("2020-05-05", "22:30", "Parc Carignan", "Le Sud-Ouest", "Vols qualifiés"));
+    listePlaintesAttendue.add(new Plainte("2020-05-05", "22:30", "Parc Carignan", "Outremont", "Bagarre"));
 
     ArrayList<Plainte> resultats = new ArrayList<>();
 
     String err = "";
     try {
-      resultats = Plaintes.creerListePlainte(tableuPlaintes);
+      resultats = Plaintes.creerListePlainte(tableuPlaintes,ENTETES,ARRONDISSEMENTS,INTERVENTIONS);
     } catch (Exception e) {
       err = e.getMessage();
     }
@@ -198,39 +262,58 @@ public class PlaintesTest {
   
   }
 
-
   @Test
-  void testCreerListePlainte_() {
+  void testCreerListePlainte_DescInvalide() {
     String[][] tableuPlaintes = {
-      { "2020-05-05", "22:30", "Parc Carignan", "Montreal", "Vol" },
-      {"2020-11-25", "15:00", "Parc Carignan", "Montreal", "Bruit"},
+      { "2020-05-05", "22:30", "Parc Carignan", "Outremont", "Vol" },
     };
 
-    ArrayList<Plainte> listePlaintesAttendue = new ArrayList<>();
-    listePlaintesAttendue.add(new Plainte("2020-05-05","22:30","Parc Carignan","Montreal","Vol"));
-    listePlaintesAttendue.add(new Plainte("2020-11-25","15:00","Parc Carignan","Montreal","Bruit"));
+    String errAttendue = "Erreur à la ligne 1. Le champs Description n'est pas valide.";
+    String errResultat = "";
 
-    ArrayList<Plainte> resultats = new ArrayList<>();
-
-    String err = "";
     try {
-      resultats = Plaintes.creerListePlainte(tableuPlaintes);
+      Plaintes.creerListePlainte(tableuPlaintes,ENTETES,ARRONDISSEMENTS,INTERVENTIONS);
     } catch (Exception e) {
-      err = e.getMessage();
+      errResultat = e.getMessage();
     }
     
-    assertEquals(listePlaintesAttendue.get(0).getDate(), resultats.get(0).getDate());
-    assertEquals(listePlaintesAttendue.get(0).getHeure(), resultats.get(0).getHeure());
-    assertEquals(listePlaintesAttendue.get(0).getParc(), resultats.get(0).getParc());
-    assertEquals(listePlaintesAttendue.get(0).getArrondissement(), resultats.get(0).getArrondissement());
-    assertEquals(listePlaintesAttendue.get(0).getDescription(), resultats.get(0).getDescription());
+    assertEquals(errAttendue, errResultat);
+  }
 
-    assertEquals(listePlaintesAttendue.get(1).getDate(), resultats.get(1).getDate());
-    assertEquals(listePlaintesAttendue.get(1).getHeure(), resultats.get(1).getHeure());
-    assertEquals(listePlaintesAttendue.get(1).getParc(), resultats.get(1).getParc());
-    assertEquals(listePlaintesAttendue.get(1).getArrondissement(), resultats.get(1).getArrondissement());
-    assertEquals(listePlaintesAttendue.get(1).getDescription(), resultats.get(1).getDescription());
-  
+  @Test
+  void testCreerListePlainte_ArrondInvalide() {
+    String[][] tableuPlaintes = {
+      { "2020-05-05", "22:30", "Parc Carignan", "Montreal", "Bagarre" },
+    };
+
+    String errAttendue = "Erreur à la ligne 1. Le champs Arrondissement n'est pas valide.";
+    String errResultat = "";
+
+    try {
+      Plaintes.creerListePlainte(tableuPlaintes,ENTETES,ARRONDISSEMENTS,INTERVENTIONS);
+    } catch (Exception e) {
+      errResultat = e.getMessage();
+    }
+    
+    assertEquals(errAttendue, errResultat);
+  }
+
+  @Test
+  void testCreerListePlainte_ParcVide() {
+    String[][] tableuPlaintes = {
+      { "2020-05-05", "22:30", "", "Montreal", "Bagarre" },
+    };
+
+    String errAttendue = "Erreur à la ligne 1. Le champs Parc est vide.";
+    String errResultat = "";
+
+    try {
+      Plaintes.creerListePlainte(tableuPlaintes,ENTETES,ARRONDISSEMENTS,INTERVENTIONS);
+    } catch (Exception e) {
+      errResultat = e.getMessage();
+    }
+    
+    assertEquals(errAttendue, errResultat);
   }
 
 }

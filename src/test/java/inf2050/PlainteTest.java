@@ -102,4 +102,18 @@ public class PlainteTest {
     }
     assertEquals(errAttendue, errResultat);
   }
+
+  @Test
+  void testCreerPlainteAvecValidation_ChampArrondInvalide(){
+    String errAttendue = LE_CHAMPS + "Arrondissement" + PAS_VALIDE;
+    String[] elementsPlainte = new String[]{"2020-09-01","20:41","Parc Camille","Montreal","Vente de drogues"};
+    String errResultat="";
+    try {
+      plainte.creerPlainteAvecValidation(elementsPlainte, champsEntete,ARRONDISSEMENTS, INTERVENTIONS);
+    } catch (Exception e) {
+      errResultat = e.getMessage();
+    }
+    assertEquals(errAttendue, errResultat);
+  }
+  
 }
