@@ -58,6 +58,24 @@ public class Plainte {
         return (date + " " + heure + " " + parc + " " + arrondissement + " " + description);
     }
 
+    @Override
+    public boolean equals(Object plainte) { 
+    
+        if (plainte == this) { 
+            return true; 
+        } 
+  
+        if (!(plainte instanceof Plainte)) { 
+            return false; 
+        } 
+          
+        Plainte plainte2 = (Plainte) plainte;
+        if(this.getArrondissement().equals(plainte2.getArrondissement())){
+            return true;
+        }
+        return false;
+    } 
+
     public static boolean validerSiExisteDansTableau(String texte, String[] possibilitesValides) {
         return Arrays.stream(possibilitesValides).anyMatch(texte::equals);
     }

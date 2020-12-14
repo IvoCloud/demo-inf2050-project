@@ -7,18 +7,6 @@ package inf2050;
 
 import inf2050.IO.*;
 
-import java.io.FileNotFoundException;
-import java.util.*;
-
-import inf2050.Plainte;
-
-import inf2050.Statistique;
-
-import net.sf.json.*;
-
-//****** */
-import java.io.*;
-
 /**
  * Class App
  */
@@ -36,17 +24,27 @@ public class App {
             String nomFichierIn = args[0];
             String nomFichierOut = args[1];
 
+            System.out.println(nomFichierIn);
+            System.out.println(nomFichierOut);
+
             Plaintes plaintes = new Plaintes(nomFichierIn);
 
-            FileWriter writer = new FileWriter("test.csv");
-            // writer.write(plaintes.getTexteBrut());
-            writer.close();
-            System.out.println("Statistique enregistre");
+            for (Plainte plainte : plaintes.getPlaintes()) {
+                
 
+            }
+        
         }catch(Exception e){
-            System.out.println("Erreur dans la: ");
+            System.out.print("Erreur: ");
             System.out.println(e.getMessage());
         }
+
+
+            // FileWriter writer = new FileWriter("test.csv");
+            // // writer.write(plaintes.getTexteBrut());
+            // writer.close();
+            // System.out.println("Statistique enregistre");
+
 
 
         // ArrayList<Plainte> plaintes = new ArrayList<>();

@@ -2,8 +2,6 @@ package inf2050;
 
 import inf2050.IO.*;
 
-import java.time.*;
-
 import java.util.*;
 
 public class Plaintes {
@@ -13,13 +11,13 @@ public class Plaintes {
     private String[] lignesPlaintes;
 
     public Plaintes() {
-
+        plaintes = new ArrayList<>();
     }
 
     public Plaintes(String nomFichierIn) throws Exception {
         String texteBrut = Fichier.lireFichier(nomFichierIn);
-        String[] arrondissementsValides = JSONReader.jsonToArray(JSONReader.jsonOpen("arrondissements.json"), "arrondissements");
-        String[] descriptionsValides = JSONReader.jsonToArray(JSONReader.jsonOpen("interventions.json"), "intervention_policiere");
+        String[] arrondissementsValides = JSONReader.retourneArrondissements();
+        String[] descriptionsValides = JSONReader.retourneInterventions();
 
         entetes = extraireChampsEntetes(texteBrut);
         entetes = validerChampsEntetes(entetes);
@@ -31,8 +29,8 @@ public class Plaintes {
         return plaintes;
     }
 
-    public void setPlaintes(ArrayList<Plainte> plaintes) {
-        this.plaintes = plaintes;
+    public void addPlaintes(Plainte plainte) {
+        plaintes.add(plainte);
     }
 
     static String[] extraireChampsEntetes(String texteBrut) throws Exception {
