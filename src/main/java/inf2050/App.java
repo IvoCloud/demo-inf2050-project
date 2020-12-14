@@ -5,7 +5,9 @@
 
 package inf2050;
 
-import inf2050.IO.*;
+import java.util.*;
+
+import java.io.*;
 
 /**
  * Class App
@@ -24,35 +26,36 @@ public class App {
             String nomFichierIn = args[0];
             String nomFichierOut = args[1];
 
+            String texteSortie = "Arrondissement, Nombre d'interventions, Nombre de parcs\n";
+
             System.out.println(nomFichierIn);
             System.out.println(nomFichierOut);
 
             Plaintes plaintes = new Plaintes(nomFichierIn);
+            Statistiques statistiques = new Statistiques();
 
             for (Plainte plainte : plaintes.getPlaintes()) {
-                
-
+                statistiques.ajouterPlainteDansStatistiques(plainte);
             }
+
+            Collections.sort(statistiques.getStatistiques());
+
+
+            for (Statistique stats : statistiques.getStatistiques()) {
+                texteSortie = texteSortie.concat(stats+"\n");
+            }
+
+            FileWriter writer = new FileWriter(nomFichierOut);
+            writer.write(texteSortie);
+            writer.close();
+            System.out.println("Statistique enregistre");
+
         
         }catch(Exception e){
             System.out.print("Erreur: ");
             System.out.println(e.getMessage());
         }
 
-
-            // FileWriter writer = new FileWriter("test.csv");
-            // // writer.write(plaintes.getTexteBrut());
-            // writer.close();
-            // System.out.println("Statistique enregistre");
-
-
-
-        // ArrayList<Plainte> plaintes = new ArrayList<>();
-        // ArrayList<Statistique> statistiques = new ArrayList<>();
-
-        // plaintes = Plainte.lirePlaintes(nomFichierIn);
-        // statistiques = Statistique.creerListeStatistiques(plaintes);
-        // Statistique.ecrireStatistiques(statistiques, nomFichierOut);
     }
 
     /**

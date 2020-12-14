@@ -1,7 +1,7 @@
 package inf2050;
 
 import java.time.*;
-import java.util.Arrays;
+import java.util.*;
 
 public class Plainte {
     private LocalDate date;

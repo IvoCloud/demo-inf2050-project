@@ -8,7 +8,7 @@ import java.util.*;
  * @param arrondissement - Lieu de l'intervention
  * @param interventions - Quantite des interventions
  */
-public class Statistique{
+public class Statistique implements Comparable<Statistique>{
 
   private String arrondissement;
   private int interventions = 0;
@@ -42,10 +42,6 @@ public class Statistique{
     return ajoute;
   }
 
-  public void incrementerIntervention(){
-    interventions++;
-  }
-
   public String getArrondissement() {
       return arrondissement;
   }
@@ -62,11 +58,17 @@ public class Statistique{
       this.interventions = intervention;
   }
 
+  public void incrementerIntervention(){
+    interventions++;
+  }
+
+  @Override
   public int compareTo(Statistique statistique) {
     return arrondissement.compareTo(statistique.arrondissement);
   }
 
+  @Override
   public String toString(){
-    return arrondissement + " " + interventions + " " + nombreParcs;
+    return arrondissement + ", " + interventions + ", " + nombreParcs;
   }
 }

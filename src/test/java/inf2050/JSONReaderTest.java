@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class JSONReaderTest {
 
+  /*
   String jsonTest = "{\"arrondissements\": [\"Ahuntsic-Cartierville\",\"Verdun\",\"Ville-Marie\",\"Villeray–Saint-Michel–Parc-Extension\"]}";
 
   @Test
@@ -53,4 +54,6 @@ public class JSONReaderTest {
     }
     assertEquals("String Json est invalide!", err);
   }
+
+  */
 }

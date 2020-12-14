@@ -1,7 +1,5 @@
 package inf2050.IO;
 
-import inf2050.*;
-
 import java.util.*;
 
 import java.io.*;
@@ -11,7 +9,10 @@ import net.sf.json.*;
 import java.nio.charset.StandardCharsets;
 
 public class JSONReader {
+
+  //Erreur ClassNotFoundException pour JSONObject et JSONSerializer
     
+  /*
 
     public static String jsonOpen(String nomFichier) throws FileNotFoundException {
         String data = "";
@@ -40,6 +41,9 @@ public class JSONReader {
           throw new Exception("String Json est invalide!");
         }
       }
+
+
+      */
 
     public static String[] retourneArrondissements() {
         return new String[]{

@@ -4,18 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-
 public class StatistiqueTest {
-
-    // @Test
-    // void testParcExiteDansStatistiques_Valide(){
-    //   String parc = "Parc Camille";
-
-    //   Statistiques statistiques = new Statistiques("Ahuntsic-Cartierville", parc);
-    //   assertTrue(statistiques.parcExiteDansStatistique("Parc Camille"));
-
-    // }
 
     @Test
   void creerListePlainte_ValideRepetitionArrondissement(){
@@ -64,54 +53,4 @@ public class StatistiqueTest {
     assertEquals(1,statistiques.getStatistiques().get(2).getParcs().size());
   }
 
-
-//   @Test
-//   void testParcExiteDansStatistiqueParArrondissement_NomParcPasDansListe(){
-//     String parc = "Parc Camille";
-
-//     StatistiqueParArrondissement StatistiqueParArrondissement = new StatistiqueParArrondissement("Ahuntsic-Cartierville", parc);
-//     assertFalse(StatistiqueParArrondissement.parcExiteDansStatistique("Parc Olympique"));
-//   }
-
-//   @Test
-//   void testAjouterParc_NouveauParcIsTrue(){
-//     String parc = "Parc Camille";
-
-//     StatistiqueParArrondissement StatistiqueParArrondissement = new StatistiqueParArrondissement("Ahuntsic-Cartierville", parc);
-//     assertTrue(StatistiqueParArrondissement.ajouterParc("Parc Olympique"));
-//   }
-
-//   @Test
-//   void testAjouterParc_DeuxParcs(){
-//     String parc = "Parc Camille";
-
-//     StatistiqueParArrondissement StatistiqueParArrondissement = new StatistiqueParArrondissement("Ahuntsic-Cartierville", parc);
-//     StatistiqueParArrondissement.ajouterParc("Parc Olympique");
-//     assertEquals(2,StatistiqueParArrondissement.getParcs().size());
-//   }
-
-//   @Test
-//   void testParc_ConstructuerDeuxParamsValides(){
-//     StatistiqueParArrondissement StatistiqueParArrondissement = new StatistiqueParArrondissement("Ahuntsic-Cartierville", "Parc Camille");
-
-//     String villeAttendue = "Ahuntsic-Cartierville";
-//     String parcAttendu = "Parc Camille";
-//     int nombreParcsAttendu = 1;
-    
-//     assertEquals(villeAttendue,StatistiqueParArrondissement.getArrondissement());
-//     assertEquals(nombreParcsAttendu,StatistiqueParArrondissement.getNombreParcs());
-//     assertEquals(nombreParcsAttendu,StatistiqueParArrondissement.getParcs().size());
-//     assertEquals(parcAttendu,StatistiqueParArrondissement.getParcs().get(0));
-//   }
-
-//   @Test
-//   void testCreerListeStatistiqueParArrondissements_DeuxStatsValides(){
-//     Plainte plainte = new Plainte("2020-05-05", "22:30", "Parc Carignan", "Outremont", "Bagarre");
-//     Plainte plainte2 = new Plainte("2020-05-05", "22:30", "Parc Carignan", "Lachine", "Manifestation illégale");
-
-//     StatistiqueParArrondissement statistiqueParArrondissement = new StatistiqueParArrondissement(plainte);
-//     StatistiqueParArrondissement statistiqueParArrondissement2 = new StatistiqueParArrondissement(plainte2);
-
-//     assertEquals(2, StatistiqueParArrondissement.getStatistiquesEnregistrees().size());
-//   }
 }
