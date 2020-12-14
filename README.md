@@ -1,3 +1,5 @@
+`Ivaylo Ivanov IVAI08039506`
+
 ## TP 3 INF2050
 
   Ceci est un projet qui lit un fichier `.CSV` et analyze les données afin d'écrire un fichier de sortie `.CSV`.
@@ -11,7 +13,5 @@
 
   ### Bogues
 
-  - Le module `json-lib` causue une erreur de _`NoClassDefFoundError: net/sf/json/JSONObject`_ quand le programme est lancé à partir du _.jar_ . <br>
-  Les test dans _`JSONReaderTest.java`_ passent avec succès, mais le programme ne lance pas.
-
-  **Fixe Temporaire:** Copier les données des fichiers _`.json`_ et les initialiser dans des _String_.
+  - Le module `json-lib` cause une erreur de _`NoClassDefFoundError: net/sf/json/JSONObject`_ quand le programme est lancé à partir du _.jar_ . <br>
+  Les test dans _`JSONReaderTest.java`_ passent avec succès, mais le programme ne lance pas. <br>**Fixe Temporaire:** Copier les données des fichiers _`.json`_ et les initialiser dans des _String_.

@@ -10,6 +10,11 @@ public class Plainte {
     private String arrondissement;
     private String description;
 
+
+    /**
+     * Classe Plainte est un objet pour chaque plainte.
+     * La classe contient les détails de chaque ligne plainte et les valeurs CSV.
+     */
     public Plainte() {
 
     }
@@ -76,10 +81,26 @@ public class Plainte {
         return false;
     } 
 
+
+    /**
+     * Cet méthode retrouve si un texte se trouve dans un tableau de texte.
+     * Retourne true si le texte existe dans le tableau.
+     * @param texte Texte qui sera recherché.
+     * @param possibilitesValides Tableau dont la recherche sera faite.
+     */
     public static boolean validerSiExisteDansTableau(String texte, String[] possibilitesValides) {
         return Arrays.stream(possibilitesValides).anyMatch(texte::equals);
     }
 
+    /**
+     * Cet méthode prends un tableau d'elements et crée un object Plainte.
+     * Retourne l'objet crée.
+     * @param elementsPlainte Elements utilisés pour créer l'objet.
+     * @param champsEntete Le champs d'entete utilisé pour indiquer quel champs manque dans le cas d'un erreur.
+     * @param arrondissementsValides Tableau d'arrondissements utilisés pour valider le champ d'arrondissement
+     * @param descriptionsValides Tableau d'interventions/déscriptions utilisés pour valider le champ d'interventions/déscriptions
+     * @throws Exception Le message d'exception jeté par la méthode.
+     */
     public static Plainte creerPlainteAvecValidation(String[] elementsPlainte, String[] champsEntete,
             String[] arrondissementsValides, String[] descriptionsValides) throws Exception {
         final String LE_CHAMPS = "Le champs ";

@@ -8,6 +8,12 @@ import java.util.*;
 
 public class Fichier {
 
+    /**
+     * Cet méthode lit un fichier et retourne le contenu en String
+     * 
+     * @param nomFichierIn Nom du fichier.
+     * @throws Exception Le message d'exception jeté par la méthode.
+     */
     public static String lireFichier(String nomFichierIn) throws Exception {
         String data = "";
         try {

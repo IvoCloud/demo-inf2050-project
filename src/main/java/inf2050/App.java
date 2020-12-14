@@ -15,7 +15,8 @@ import java.io.*;
 public class App {
     
     /**
-     * Fonction main du projet
+     * Méthode main du projet. 
+     * _Main_ gère aussi les exceptions lancées par les autre méthodes.
      * @param args args[0] - La destination de lecture.
      * @param args args[1] - La destination de l'écriture.
      */
